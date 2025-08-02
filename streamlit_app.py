@@ -17,6 +17,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 api_key = os.getenv('GROQ_API_KEY')
+os.environ['HF-TOKEN'] = os.getenv('HF-TOKEN')
 
 # Tools
 arxiv_wrapper = ArxivAPIWrapper(top_k_results=1, doc_content_chars_max=200)
