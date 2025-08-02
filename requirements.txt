@@ -11,3 +11,4 @@ wikipedia
 PyPDF2
 tqdm
 arxiv
+pypdf
