@@ -7,8 +7,9 @@ from langchain.agents import initialize_agent, AgentType
 from langchain_community.callbacks.streamlit import StreamlitCallbackHandler 
 from langchain_community.vectorstores import FAISS
 from langchain_community.document_loaders import PyPDFLoader
+from langchain_community.embeddings import OllamaEmbeddings
 from langchain.tools import Tool
-from langchain_huggingface import HuggingFaceEmbeddings
+# from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 import tempfile
 import os
@@ -33,7 +34,7 @@ def load_doc_cached(pdf_path):
     docs = loader.load()
     text_splitter = RecursiveCharacterTextSplitter(chunk_size=500, chunk_overlap=50)
     splits = text_splitter.split_documents(docs)
-    db = FAISS.from_documents(splits, HuggingFaceEmbeddings(model_name="all-MiniLM-L6-v2"))
+    db = FAISS.from_documents(splits, OllamaEmbeddings(model="nomic-embed-text"))
     return db.as_retriever()
 
 st.title("🔎 LangChain - Chat with search")
