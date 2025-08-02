@@ -12,3 +12,4 @@ PyPDF2
 tqdm
 arxiv
 pypdf
+sentence-transformers
