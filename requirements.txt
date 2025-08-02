@@ -10,3 +10,4 @@ duckduckgo-search
 wikipedia
 PyPDF2
 tqdm
+arxiv
