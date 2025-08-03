@@ -7,9 +7,10 @@ from langchain.agents import initialize_agent, AgentType
 from langchain_community.callbacks.streamlit import StreamlitCallbackHandler 
 from langchain_community.vectorstores import FAISS
 from langchain_community.document_loaders import PyPDFLoader
-from langchain_community.embeddings import OllamaEmbeddings
+# from langchain_community.embeddings import OllamaEmbeddings
+from langchain_community.embeddings import HuggingFaceInferenceAPIEmbeddings
 from langchain.tools import Tool
-# from langchain_huggingface import HuggingFaceEmbeddings
+from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 import tempfile
 import os
@@ -18,7 +19,10 @@ from dotenv import load_dotenv
 
 load_dotenv()
 api_key = os.getenv('GROQ_API_KEY')
-os.environ['HF-TOKEN'] = os.getenv('HF-TOKEN')
+hf_token = os.getenv("HF_TOKEN")
+if not hf_token:
+    st.error("Hugging Face token (HF_TOKEN) not found in environment variables.")
+    st.stop()
 
 # Tools
 arxiv_wrapper = ArxivAPIWrapper(top_k_results=1, doc_content_chars_max=200)
@@ -33,8 +37,12 @@ def load_doc_cached(pdf_path):
     loader = PyPDFLoader(pdf_path)
     docs = loader.load()
     text_splitter = RecursiveCharacterTextSplitter(chunk_size=500, chunk_overlap=50)
+    
     splits = text_splitter.split_documents(docs)
-    db = FAISS.from_documents(splits, OllamaEmbeddings(model="nomic-embed-text"))
+    db = FAISS.from_documents(splits, HuggingFaceEmbeddings(      
+        model_name="sentence-transformers/all-MiniLM-L6-v2"
+    ))
+
     return db.as_retriever()
 
 st.title("🔎 LangChain - Chat with search")
