@@ -9,8 +9,9 @@ An **AI-powered research assistant** that can:
 Just upload a PDF, ask a question, and get accurate, well-sourced answers enriched with external knowledge.
 
 ---
-<img width="1004" height="986" alt="image" src="https://github.com/user-attachments/assets/de68b5fa-2e83-479d-8406-350f72b0f0f9" />
+<img width="500" height="650" alt="image" src="https://github.com/user-attachments/assets/de68b5fa-2e83-479d-8406-350f72b0f0f9" />
 
+---
 
 ## 🚀 Features
 - **PDF Analysis** – Extracts and understands document content.
@@ -24,6 +25,5 @@ Just upload a PDF, ask a question, and get accurate, well-sourced answers enrich
 ## 🛠 Setup Instructions
 - Set a groq api key - GROQ_API_KEY
 - Set a huggingFace token - HF-TOKEN
-
-pip install -r requirements.txt
-stremalit run streamlit_app.py  
+- pip install -r requirements.txt
+- streamlit run streamlit_app.py  
